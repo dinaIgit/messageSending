@@ -7,11 +7,11 @@
 
 	$mail = new PHPMailer(true);
 	$mail->CharSet = 'UTF-8';
-	$mail->setLanguage('ru', 'de', 'en', 'phpmailer/language/');
+	$mail->setLanguage('ru', 'phpmailer/language/');
 	$mail->IsHTML(true);
 
 	//From whom is the letter
-	$mail->setFrom('https://dinaigit.github.io/dinaIgit.io/index.html', 'Portfolio message');
+	$mail->setFrom('d.iskakova.job@gmail.com', 'Portfolio message');
 	//Who to send
 	$mail->addAddress('d.iskakova.job@gmail.com');
 	//Subject line
