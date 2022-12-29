@@ -25,17 +25,16 @@ document.addEventListener('DOMContentLoaded', function () {
 				form.reset();
 				form.classList.remove('_sending');
 			} else {
-				alert("Ошибка");
+				alert("Error");
 				form.classList.remove('_sending');
 			}
 		} else {
-			alert('Заполните обязательные поля');
+			alert('Fill in the required fields');
 		}
-
 	}
 
 
-	function formValidate(form) {
+	function formValidate() {
 		let error = 0;
 		let formReq = document.querySelectorAll('._req');
 
@@ -68,40 +67,40 @@ document.addEventListener('DOMContentLoaded', function () {
 		input.parentElement.classList.remove('_error');
 		input.classList.remove('_error');
 	}
-	//Функция теста email
+	//Email test function
 	function emailTest(input) {
 		return !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,8})+$/.test(input.value);
 	}
 
-	//Получаем инпут file в переменную
+	//Get an intu file into a variable
 	const formImage = document.getElementById('formImage');
-	//Получаем див для превью в переменную
+	//Get the div for the preview into a variable
 	const formPreview = document.getElementById('formPreview');
 
-	//Слушаем изменения в инпуте file
+	//Listening for changes in the intu file
 	formImage.addEventListener('change', () => {
 		uploadFile(formImage.files[0]);
 	});
 
 	function uploadFile(file) {
-		// провераяем тип файла
+		// Check the file type
 		if (!['image/jpeg', 'image/png', 'image/gif'].includes(file.type)) {
-			alert('Разрешены только изображения.');
+			alert('Only images are allowed.');
 			formImage.value = '';
 			return;
 		}
-		// проверим размер файла (<2 Мб)
+		// check the file size (<2 MB)
 		if (file.size > 2 * 1024 * 1024) {
-			alert('Файл должен быть менее 2 МБ.');
+			alert('The file must be less than 2 MB.');
 			return;
 		}
 
-		var reader = new FileReader();
+		const reader = new FileReader();
 		reader.onload = function (e) {
-			formPreview.innerHTML = `<img src="${e.target.result}" alt="Фото">`;
+			formPreview.innerHTML = `<img src="${e.target.result}" alt="Photo">`;
 		};
-		reader.onerror = function (e) {
-			alert('Ошибка');
+		reader.onerror = function () {
+			alert('Error');
 		};
 		reader.readAsDataURL(file);
 	}

@@ -7,61 +7,61 @@
 
 	$mail = new PHPMailer(true);
 	$mail->CharSet = 'UTF-8';
-	$mail->setLanguage('ru', 'phpmailer/language/');
+	$mail->setLanguage('en', 'phpmailer/language/');
 	$mail->IsHTML(true);
 
-	//От кого письмо
+	//From whom is the letter
 	$mail->setFrom('d.iskakova.job@gmail.com', 'Portfolio message');
-	//Кому отправить
+	//Who to send
 	$mail->addAddress('d.iskakova.job@gmail.com');
-	//Тема письма
-	$mail->Subject = 'Привет! Это "Portfolio message"';
+	//Subject line
+	$mail->Subject = 'Hello! This message is from the portfolio submission form"';
 
-	//Рука
-	$hand = "Правая";
-	if($_POST['hand'] == "left"){
-		$hand = "Левая";
+	//Identity
+	$identity = "private";
+	if($_POST['identity'] == "company"){
+		$identity = "company";
 	}
 
-	//Тело письма
-	$body = '<h1>Встречайте супер письмо!</h1>';
+	//message body
+	$body = '<h1>This message is from the portfolio</h1>';
 	
 	if(trim(!empty($_POST['name']))){
-		$body.='<p><strong>Имя:</strong> '.$_POST['name'].'</p>';
+		$body.='<p><strong>Name:</strong> '.$_POST['name'].'</p>';
 	}
 	if(trim(!empty($_POST['email']))){
-		$body.='<p><strong>E-mail:</strong> '.$_POST['email'].'</p>';
+		$body.='<p><strong>E-Mail:</strong> '.$_POST['email'].'</p>';
 	}
-	if(trim(!empty($_POST['hand']))){
-		$body.='<p><strong>Рука:</strong> '.$hand.'</p>';
+	if(trim(!empty($_POST['identity']))){
+		$body.='<p><strong>Identity:</strong> '.$identity.'</p>';
 	}
-	if(trim(!empty($_POST['age']))){
-		$body.='<p><strong>Возраст:</strong> '.$_POST['age'].'</p>';
-	}
+/* 	if(trim(!empty($_POST['age']))){
+		$body.='<p><strong>Age:</strong> '.$_POST['age'].'</p>';
+	} */
 	
 	if(trim(!empty($_POST['message']))){
-		$body.='<p><strong>Сообщение:</strong> '.$_POST['message'].'</p>';
+		$body.='<p><strong>Message:</strong> '.$_POST['message'].'</p>';
 	}
 	
-	//Прикрепить файл
+	//Attach file
 	if (!empty($_FILES['image']['tmp_name'])) {
-		//путь загрузки файла
+		//file path
 		$filePath = __DIR__ . "/files/" . $_FILES['image']['name']; 
-		//грузим файл
+		//uploading the file
 		if (copy($_FILES['image']['tmp_name'], $filePath)){
 			$fileAttach = $filePath;
-			$body.='<p><strong>Фото в приложении</strong>';
+			$body.='<p><strong>Attachment photo</strong>';
 			$mail->addAttachment($fileAttach);
 		}
 	}
 
 	$mail->Body = $body;
 
-	//Отправляем
+	//Send
 	if (!$mail->send()) {
-		$message = 'Ошибка';
+		$message = 'Error';
 	} else {
-		$message = 'Данные отправлены!';
+		$message = 'Data has been sent!';
 	}
 
 	$response = ['message' => $message];
