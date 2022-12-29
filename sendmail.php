@@ -5,6 +5,11 @@
 	require 'phpmailer/src/Exception.php';
 	require 'phpmailer/src/PHPMailer.php';
 
+	$mail->isSMTP();                                      // Set mailer to use SMTP
+	$mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
+	$mail->SMTPAuth = true;                               // Enable SMTP authentication
+
+
 	$mail = new PHPMailer(true);
 	$mail->CharSet = 'UTF-8';
 	$mail->setLanguage('en', 'phpmailer/language/');
